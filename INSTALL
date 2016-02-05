@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Install MapNetworkDrive.sh and all dependencies and scripts necessary for script
+# to execute on computer startup, and on wake and sleep.
+
+
+##### INSTALL SLEEPWATCHER #####
+# Install if sleepwatcher is not already installed
+if [ ! -f /usr/local/sbin/sleepwatcher ]; then
+	sudo mkdir -p /usr/local/sbin /usr/local/share/man/man8  
+	sudo cp ./bin/sleepwatcher_2.2/sleepwatcher /usr/local/sbin
+	sudo cp ./bin/sleepwatcher_2.2/sleepwatcher.8 /usr/local/share/man/man8
+fi
+
+##### COPY .PLIST FILES TO LAUNCHAGENT #####
+sudo cp ./bin/SleepWatcherDaemon.plist ~/Library/LaunchAgents/
+sudo cp ./bin/MapNetworkDrive.plist ~/Library/LaunchAgents/
+
+
+##### COPY SOURCE MAPNETWORKDRIVE.SH SCRIPT TO USAGE DIRECTORY #####
+sudo cp ./MapNetworkDrive.sh /usr/local/sbin/ 
+sudo cp ./MOUNTLIST /usr/local/sbin/
+
