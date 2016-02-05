@@ -3,21 +3,51 @@
 # Install MapNetworkDrive.sh and all dependencies and scripts necessary for script
 # to execute on computer startup, and on wake and sleep.
 
-
+SBIN=/usr/local/sbin
 ##### INSTALL SLEEPWATCHER #####
 # Install if sleepwatcher is not already installed
 if [ ! -f /usr/local/sbin/sleepwatcher ]; then
+	echo -ne '\033[0;33mAttempting to install sleepwatcher...\t\033[0m'
 	sudo mkdir -p /usr/local/sbin /usr/local/share/man/man8  
-	sudo cp ./bin/sleepwatcher_2.2/sleepwatcher /usr/local/sbin
+	sudo cp ./bin/sleepwatcher_2.2/sleepwatcher ${SBIN}
+	sudo chown ${USER}:wheel ${SBIN}/sleepwatcher
+	sudo chmod 755 ${SBIN}/sleepwatcher
 	sudo cp ./bin/sleepwatcher_2.2/sleepwatcher.8 /usr/local/share/man/man8
+	echo -e '\033[0;32mDone!\033[0m'
 fi
 
 ##### COPY .PLIST FILES TO LAUNCHAGENT #####
+echo -ne '\033[0;33mMoving daemon .plist files to LaunchAgents directory...\t\033[0m'
 sudo cp ./bin/SleepWatcherDaemon.plist ~/Library/LaunchAgents/
 sudo cp ./bin/MapNetworkDrive.plist ~/Library/LaunchAgents/
-
+# change the ownership and file access permissions for the copied files
+sudo chown cfarmer:wheel ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
+sudo chmod 755 ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
+# reload launch daemons
+launchctl unload ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist &>/dev/null
+launchctl load ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist &>/dev/null
+echo -e '\033[0;32mDone!\033[0m'
 
 ##### COPY SOURCE MAPNETWORKDRIVE.SH SCRIPT TO USAGE DIRECTORY #####
-sudo cp ./MapNetworkDrive.sh /usr/local/sbin/ 
-sudo cp ./MOUNTLIST /usr/local/sbin/
+echo -ne '\033[0;33mMoving core script files to /usr/local/sbin/...\t\033[0m'
+sudo cp ./MapNetworkDrive.sh "${SBIN}/"
+sudo cp ./MOUNTLIST.txt "${SBIN}/"
+sudo chown $USER:wheel "${SBIN}/MapNetworkDrive.sh" "${SBIN}/MOUNTLIST.txt"
+sudo chmod 755 "${SBIN}/MapNetworkDrive.sh"
+sudo chmod 766 "${SBIN}/MOUNTLIST.txt"
+echo -e '\033[0;32mDone!\033[0m'
 
+##### START SLEEP WATCHER DAEMON WITH OPTIONS ######
+PID=$(ps aux | grep -v grep | grep '/usr/local/sbin/sleepwatcher' | awk '{print $2}')
+# If PID variable is not empty, then sleepwatcher was already running
+if [ ! -z "$PID" ]; then
+	# Kill sleepwatcher, before we start it again
+	echo -ne '\033[0;33mStopping sleepwatcher daemon...\t\033[0m'
+	sudo kill -INT ${PID}
+	echo -e '\033[0;32mDone!\033[0m'
+fi
+
+# Start sleepwatcher
+echo -ne '\033[0;33mStarting sleepwatcher daemon...\t\033[0m'
+/usr/local/sbin/sleepwatcher -V -w "${SBIN}/MapNetworkDrive.sh"
+echo -e '\033[0;32mDone!\033[0m'

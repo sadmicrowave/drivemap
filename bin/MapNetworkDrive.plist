@@ -3,16 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>wakestora</string>
+	<string>com.sadmicrowave.drivemap</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/sbin/sleepwatcher</string>
-		<string>-V</string>
-		<string>-w /usr/local/sbin/MapNetworkDrive.sh</string>
+		<string>/usr/local/sbin/MapNetworkDrive.sh</string>
 	</array>
 	<key>RunAtLoad</key>
-	<true/>
-	<key>KeepAlive</key>
 	<true/>
 </dict>
 </plist>

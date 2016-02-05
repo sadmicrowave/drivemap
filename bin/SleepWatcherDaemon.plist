@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>wakestora</string>
+	<string>com.sadmicrowave.drivemap.sleepwatcher</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/sbin/sleepwatcher</string>
