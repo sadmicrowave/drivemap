@@ -21,7 +21,7 @@ echo -ne '\033[0;33mMoving daemon .plist files to LaunchAgents directory...\t\03
 sudo cp ./bin/SleepWatcherDaemon.plist ~/Library/LaunchAgents/
 sudo cp ./bin/MapNetworkDrive.plist ~/Library/LaunchAgents/
 # change the ownership and file access permissions for the copied files
-sudo chown cfarmer:wheel ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
+sudo chown ${USER}:wheel ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
 sudo chmod 755 ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
 # reload launch daemons
 launchctl unload ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist &>/dev/null
