@@ -23,7 +23,9 @@ sudo cp ./bin/MapNetworkDrive.plist ~/Library/LaunchAgents/
 # change the ownership and file access permissions for the copied files
 sudo chown ${USER}:wheel ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
 sudo chmod 755 ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist
+echo -e '\033[0;32mDone!\033[0m'
 # reload launch daemons
+echo -ne '\033[0;33mReloading .plist launch daemons...\t\033[0m'
 launchctl unload ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist &>/dev/null
 launchctl load ~/Library/LaunchAgents/MapNetworkDrive.plist ~/Library/LaunchAgents/SleepWatcherDaemon.plist &>/dev/null
 echo -e '\033[0;32mDone!\033[0m'
