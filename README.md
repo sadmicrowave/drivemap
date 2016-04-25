@@ -1,5 +1,5 @@
 # Drive Map, Bash Automatic Drive Mapping Tool
-Drive Map is an automatic drive mapping tool which maps local
+Drive Map is an automatic drive mapping tool for Mac OS X, which maps local
 network servers when the computer initially logs in, wakes, and sleeps.
 The tool utilizes the keychain access app in Mac OS X to retrieve 
 generic internet passwords associated with usernames tied to server paths
