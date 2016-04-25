@@ -32,10 +32,10 @@ get_pw () {
 
 # Iterate over lines in input file, ignore blank lines with "grep -v "^$"
 #for l in $(cat "$INPUT_FILE" | grep -v "^.*$"); do
-cat $INPUT_FILE|while read l; do
+cat $INPUT_FILE | while read $(echo l | grep -v "^$"); do
 	# Set string splitting delimiter
 	IFS=';' read -r SERVER_PATH USERNAME <<< "$l"
-
+	
 	SERVER_NAME=${SERVER_PATH%%/*}
 	PW=$(get_pw)
 
@@ -77,6 +77,7 @@ cat $INPUT_FILE|while read l; do
 		if [ ! -d "${MOUNT_POINT}" ]; then
 			mkdir $MOUNT_POINT
 		fi
+		# replace any spaces in the server path with %20 which will ensure proper space evaluation in the path during the mount command
 		SERVER_PATH=${SERVER_PATH/ /%20}
 		
 		# Perform the mount with type smbfs
