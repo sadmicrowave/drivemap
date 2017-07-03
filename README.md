@@ -5,7 +5,7 @@ The tool utilizes the keychain access app in Mac OS X to retrieve
 generic internet passwords associated with usernames tied to server paths
 you wish to mount.  
 
-Drive Map is maintained by Emerus, Holdings and is distributed under GNU GPL 3.
+Drive Map is maintained by sadmicrowave and is distributed under GNU GPL 3.
 
 # Common Usage
 List the servers and usernames you wish to mount
@@ -25,7 +25,7 @@ with Drive Map:
 
 ## Licence
 
-Copyright (C) 2015 Emerus, Holdings
+Copyright (C) 2015
 
 This file is part of Drive Map.
 

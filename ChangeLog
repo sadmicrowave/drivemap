@@ -1,3 +1,9 @@
-2016-02-05  Corey Farmer  <corey.farmer@emerus.com>
+2017-07-03  Corey Farmer  <corey.m.farmer@gmail.com>
 
-	Initial commit
+	- Added URI encoding of passwords to convert special characters
+
+
+2016-02-05  Corey Farmer  <corey.m.farmer@gmail.com>
+
+	- Initial commit
+
