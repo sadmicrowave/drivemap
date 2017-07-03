@@ -80,7 +80,10 @@ cat $INPUT_FILE | while read $(echo l | grep -v "^$"); do
 		# replace any spaces in the server path with %20 which will ensure proper space evaluation in the path during the mount command
 		SERVER_PATH=${SERVER_PATH/ /%20}
 		
+		# replace the special characters +@_ with their CDN encoded equivalent to avoid path interferance
+		PASS=$(sed -e "s/+/%2B/g;s/@/%40/g;s/_/%5F/g" <<< "$PW")
+		
 		# Perform the mount with type smbfs
-		mount -t smbfs "smb://$USERNAME:$PW@${SERVER_PATH}" "${MOUNT_POINT}"		
+		mount -t smbfs "smb://$USERNAME:$PASS@${SERVER_PATH}" "${MOUNT_POINT}"		
 	fi
 done
