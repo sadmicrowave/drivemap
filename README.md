@@ -32,6 +32,9 @@ Here you can find a description of files and directories distributed with Drive 
 * INSTALL : Bash script to install dependencies and place .plist files
 * README.md : This ReadMe file
 * MapNetworkDrive.sh    : source in Bash
+* CODE_OF_CONDUCT.md : How to behave 
+* CONTRIBUTING.md : How to contribute to the project
+* MapNetworkDrive.sh    : source in Bash 
 *  bin :
    *  SleepWatcherDaemon.plist : .plist config to autostart the sleepwatcher utility on system start
    *  MapNetworkDrive.plist : .plist config to autostart drive map on system start
